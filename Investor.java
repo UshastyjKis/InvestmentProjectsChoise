@@ -3,9 +3,9 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Investor {
-	private double rCr;
-	private double rDep;
-	private BigDecimal capital;
+	private double rCr;//РЎСЂРµРґРЅСЏСЏ СЃС‚Р°РІРєР° РїРѕ РєСЂРµРґРёС‚Р°Рј
+	private double rDep;//РЎСЂРµРґРЅСЏСЏ СЃС‚Р°РІРєР° РїРѕ РґРµРїРѕР·РёС‚Р°Рј
+	private BigDecimal capital;//РРЅРІРµСЃС‚РёС†РёРѕРЅРЅС‹Р№ РєР°РїРёС‚Р°Р»
 	
 	Investor (){
 		rCr = 0;
@@ -17,11 +17,11 @@ public class Investor {
 		int cap = 0;
 		Scanner inp = new Scanner(System.in);
 		inp.useLocale(Locale.US);
-		System.out.print("Введите среднюю ставку по кредитам: ");
+		System.out.print("Р’РІРµРґРёС‚Рµ СЃСЂРµРґРЅСЋСЋ СЃС‚Р°РІРєСѓ РїРѕ РєСЂРµРґРёС‚Р°Рј: ");
 		rCr = inp.nextDouble();
-		System.out.print("Введите среднюю ставку по депозитам: ");
+		System.out.print("Р’РІРµРґРёС‚Рµ СЃСЂРµРґРЅСЋСЋ СЃС‚Р°РІРєСѓ РїРѕ РґРµРїРѕР·РёС‚Р°Рј: ");
 		rDep = inp.nextDouble();
-		System.out.print("Введите размер инвестиционного капитала: ");
+		System.out.print("Р’РІРµРґРёС‚Рµ СЂР°Р·РјРµСЂ РёРЅРІРµСЃС‚РёС†РёРѕРЅРЅРѕРіРѕ РєР°РїРёС‚Р°Р»Р°: ");
 		cap = inp.nextInt();
 		capital = BigDecimal.valueOf(cap);
 		inp.close();
