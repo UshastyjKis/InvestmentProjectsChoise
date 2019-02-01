@@ -85,22 +85,22 @@ public class InvProject {
 			boolean error = false;
 			Scanner input = new Scanner(System.in);
 			input.useLocale(Locale.US);
-			System.out.print("Введите название проекта: ");
+			System.out.print("Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РїСЂРѕРµРєС‚Р°: ");
 			name = input.next();
-			System.out.print("Введите период реализации проекта (целое положительное число): ");
+			System.out.print("Р’РІРµРґРёС‚Рµ РїРµСЂРёРѕРґ СЂРµР°Р»РёР·Р°С†РёРё РїСЂРѕРµРєС‚Р° (С†РµР»РѕРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ): ");
 			for (int k = 0; k < 10; k++) {
 				if (k == 0 || error == true) {
 					try {
 						t = input.nextInt();
 					} catch(Throwable InputMismatchException) {
 						error = true;
-						System.out.println("Вы ввели неверное значение: " + t + "Введите период реализации проекта (целое положительное число): ");
+						System.out.println(""Р’С‹ РІРІРµР»Рё РЅРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ: " + t + "Р’РІРµРґРёС‚Рµ РїРµСЂРёРѕРґ СЂРµР°Р»РёР·Р°С†РёРё РїСЂРѕРµРєС‚Р° (С†РµР»РѕРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ): ");
 					}
 				}
 			}
-			System.out.print("Введите ставку дисконтирования (число в формате десятичной дроби с разделителем точкой, например 10% - это 0.1): ");// Add try catch
+			System.out.print("Р’РІРµРґРёС‚Рµ СЃС‚Р°РІРєСѓ РґРёСЃРєРѕРЅС‚РёСЂРѕРІР°РЅРёСЏ (С‡РёСЃР»Рѕ РІ С„РѕСЂРјР°С‚Рµ РґРµСЃСЏС‚РёС‡РЅРѕР№ РґСЂРѕР±Рё СЃ СЂР°Р·РґРµР»РёС‚РµР»РµРј С‚РѕС‡РєРѕР№, РЅР°РїСЂРёРјРµСЂ 10% - СЌС‚Рѕ 0.1): ");// Add try catch
 			r = input.nextDouble();
-			System.out.print("Введите величину первоначальных инвестиций (положительное число): ");// Add try catch
+			System.out.print("Р’РІРµРґРёС‚Рµ РІРµР»РёС‡РёРЅСѓ РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅС‹С… РёРЅРІРµСЃС‚РёС†РёР№ (РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ): ");// Add try catch
 			int fV0 = input.nextInt();
 			iC = BigDecimal.valueOf(fV0);
 			double payback = -fV0;
@@ -108,7 +108,7 @@ public class InvProject {
 			double j = 0;
 			int y = 0;
 			for(int x = 1; x<=t; x++) {
-				System.out.print("Введите денежный поток " + x + " года: ");// Add try catch
+				System.out.print("Р’РІРµРґРёС‚Рµ РґРµРЅРµР¶РЅС‹Р№ РїРѕС‚РѕРє " + x + " РіРѕРґР°: ");// Add try catch
 				fV = input.nextDouble();
 				cashFlow.add(fV);
 				if (fV > 0) {
@@ -142,7 +142,7 @@ public class InvProject {
 		
 		public BigDecimal countNPV () {
 			NPV = fVal.subtract(iC);
-			System.out.println("Чистый дисконтированный доход проекта " + name + " равен " + NPV);
+			System.out.println("Р§РёСЃС‚С‹Р№ РґРёСЃРєРѕРЅС‚РёСЂРѕРІР°РЅРЅС‹Р№ РґРѕС…РѕРґ РїСЂРѕРµРєС‚Р° " + name + " СЂР°РІРµРЅ " + NPV);
 			return NPV;
 		}
 		
@@ -150,23 +150,23 @@ public class InvProject {
 			double futVal = 0;
 			for (int i = 0; i < cashFlow.size(); i++) {
 				futVal = futVal + cashFlow.get(i)/(Math.pow(1 + a, i + 1));
-				//System.out.println ("futVal равно " + futVal);
+				//System.out.println ("futVal СЂР°РІРЅРѕ " + futVal);
 			}
 			BigDecimal futValue = new BigDecimal(0);
 			futValue = BigDecimal.valueOf (futVal);
 			NPV = futValue.subtract(iC);
-			//System.out.println("Чистый дисконтированный доход проекта " + name + " равен " + NPV);
+			//System.out.println("Р§РёСЃС‚С‹Р№ РґРёСЃРєРѕРЅС‚РёСЂРѕРІР°РЅРЅС‹Р№ РґРѕС…РѕРґ РїСЂРѕРµРєС‚Р° " + name + " СЂР°РІРµРЅ " + NPV);
 			return NPV;
 		}
 		
 		public BigDecimal countPI () {
 			PI = fVal.divide(iC);
-			System.out.println("Индекс доходности проекта " + name + " равен " + PI);
+			System.out.println("РРЅРґРµРєСЃ РґРѕС…РѕРґРЅРѕСЃС‚Рё РїСЂРѕРµРєС‚Р° " + name + " СЂР°РІРµРЅ " + PI);
 			return PI;
 		}
 		
 		public Double countDPP () {
-			System.out.println("Дисконтированный период окупаемости проекта " + name + " равен " + DPP + " лет");
+			System.out.println("Р”РёСЃРєРѕРЅС‚РёСЂРѕРІР°РЅРЅС‹Р№ РїРµСЂРёРѕРґ РѕРєСѓРїР°РµРјРѕСЃС‚Рё РїСЂРѕРµРєС‚Р° " + name + " СЂР°РІРµРЅ " + DPP + " Р»РµС‚");
 			return DPP;
 		}
 		
@@ -175,7 +175,7 @@ public class InvProject {
 			//double r2 = 0;
 			if (isIrrational == false) {
 				r1 = Math.pow (fVSum/iC.doubleValue(), 1/t) - 1;
-				//System.out.println ("r1 равна " + r1);
+				//System.out.println ("r1 СЂР°РІРЅР° " + r1);
 				for (double i = r1; i < Double.MAX_VALUE; i = i + 0.01) {
 					BigDecimal y = this.countNPV (i);
 					if (y.doubleValue() <= 0) {
@@ -184,16 +184,16 @@ public class InvProject {
 					}
 				}
 				/*r2 = fVSum/iC.doubleValue() - 1;
-				System.out.println ("r2 равна " + r2);
+				System.out.println ("r2 СЂР°РІРЅР° " + r2);
 				BigDecimal NPV1 = this.countNPV(r1);
 				BigDecimal NPV2 = this.countNPV(r2);
 				IRR = r1 + NPV1.doubleValue() * (r2 - r1) / (NPV1.doubleValue() - NPV2.doubleValue());*/
-				System.out.println ("IRR равна " + IRR);
+				System.out.println ("IRR СЂР°РІРЅР° " + IRR);
 				this.countNPV(IRR);
 				return IRR;
 			} else {
 				r1 = Math.pow (fVSum/iC.doubleValue(), 1/t) - 1;
-				//System.out.println ("r1 равна " + r1);
+				//System.out.println ("r1 СЂР°РІРЅР° " + r1);
 				for (double i = r1; i < Double.MAX_VALUE; i = i + 0.01) {
 					BigDecimal y = this.countNPV (i);
 					if (y.doubleValue() <= 0) {
@@ -202,7 +202,7 @@ public class InvProject {
 					}
 				}
 				//MIRR = Math.pow((cFIn/cFOut - 1), 1/t);
-				System.out.println ("MIRR равна " + MIRR);
+				System.out.println ("MIRR СЂР°РІРЅР° " + MIRR);
 				//this.countNPV(MIRR);
 				return MIRR;
 			}
