@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Сhoice extends Configs  {
+public class Choice extends Configs  {
 	
-	Connection dbConnection;// Соединяемся с базой
+	Connection dbConnection;//Connecting with base
 	public Connection getDbConnection() throws ClassNotFoundException, SQLException {
 		String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName +
 			"?serverTimezone=Europe/Moscow";
@@ -40,7 +40,7 @@ public class Сhoice extends Configs  {
 		inpt.useLocale(Locale.US);
 		while (answer == true) {
 			int i = 0;
-			System.out.println("Хотите ввести проект для сравнения? (1 - да, 0 - нет) ");
+			System.out.println("РҐРѕС‚РёС‚Рµ РІРІРµСЃС‚Рё РїСЂРѕРµРєС‚ РґР»СЏ СЃСЂР°РІРЅРµРЅРёСЏ? (1 - РґР°, 0 - РЅРµС‚) ");
 			answ = inpt.nextInt();
 			if (answ == 0) {
 				answer = false;
@@ -73,21 +73,21 @@ public class Сhoice extends Configs  {
 		}
 	}
 	
-	public ResultSet getProjectIRR() {// Получаем отсортированные данные из базы IRR/MIRR
+	public ResultSet getProjectIRR() {// РџРѕР»СѓС‡Р°РµРј РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Рµ РґР°РЅРЅС‹Рµ РёР· Р±Р°Р·С‹ IRR/MIRR
 		ResultSet resSetIRR = null;
 		
 		String select = "SELECT IRR/MIRR FROM" + Const.PROJECT_TABLE + "ORDER BY" + Const.PROJECT_IRR_MIRR + "DESC";
 		return resSetIRR;
 	}
 	
-	public ResultSet getProjectIC() {// Получаем отсортированные данные из базы IRR/MIRR
+	public ResultSet getProjectIC() {// РџРѕР»СѓС‡Р°РµРј РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Рµ РґР°РЅРЅС‹Рµ РёР· Р±Р°Р·С‹ IC
 		ResultSet resSetIC = null;
 		
 		String select = "SELECT IC FROM" + Const.PROJECT_TABLE + "ORDER BY" + Const.PROJECT_IRR_MIRR + "DESC";
 		return resSetIC;
 	}
 	
-	public ResultSet getProjectPI() {// Получаем отсортированные данные из базы IRR/MIRR
+	public ResultSet getProjectPI() {// РџРѕР»СѓС‡Р°РµРј РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Рµ РґР°РЅРЅС‹Рµ РёР· Р±Р°Р·С‹ PI
 		ResultSet resSetPI = null;
 		
 		String select = "SELECT PI FROM" + Const.PROJECT_TABLE + "ORDER BY" + Const.PROJECT_IRR_MIRR + "DESC";
@@ -98,29 +98,30 @@ public class Сhoice extends Configs  {
 		double income = 0;
 		double restOfCap = investor.getCapital().doubleValue();
 		
-		ResultSet resultIRR = getProjectIRR();// Записываем отсортированные данные в переменную
-		ResultSet resultIC = getProjectIC();// Записываем отсортированные данные в переменную
-		ResultSet resultPI = getProjectIC();// Записываем отсортированные данные в переменную
+		//Р—Р°РїРёСЃС‹РІР°РµРј РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Рµ РґР°РЅРЅС‹Рµ РІ РїРµСЂРµРјРµРЅРЅС‹Рµ
+		ResultSet resultIRR = getProjectIRR();
+		ResultSet resultIC = getProjectIC();
+		ResultSet resultPI = getProjectIC();
 		
 		int counter = 0;
 		try {
 			while (resultIRR.next()) {
 			try {
-				if (resultIRR.getDouble(counter) > investor.getRDep() && restOfCap != 0) {// Если внутренняя норма доходности проекта выше, чем ставка по депозиту, и остаток капитала не равен нулю
-					if (restOfCap > resultIC.getDouble(counter)) {// Если остаток капитала больше, чем первоначальные инвестиции в проект
+				if (resultIRR.getDouble(counter) > investor.getRDep() && restOfCap != 0) {//Р•СЃР»Рё РІРЅСѓС‚СЂРµРЅРЅСЏСЏ РЅРѕСЂРјР° РґРѕС…РѕРґРЅРѕСЃС‚Рё РїСЂРѕРµРєС‚Р° РІС‹С€Рµ, С‡РµРј СЃС‚Р°РІРєР° РїРѕ РґРµРїРѕР·РёС‚Сѓ, Рё РѕСЃС‚Р°С‚РѕРє РєР°РїРёС‚Р°Р»Р° РЅРµ СЂР°РІРµРЅ РЅСѓР»СЋ
+					if (restOfCap > resultIC.getDouble(counter)) {//Р•СЃР»Рё РѕСЃС‚Р°С‚РѕРє РєР°РїРёС‚Р°Р»Р° Р±РѕР»СЊС€Рµ, С‡РµРј РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅС‹Рµ РёРЅРІРµСЃС‚РёС†РёРё РІ РїСЂРѕРµРєС‚
 						restOfCap = restOfCap - resultIC.getDouble(counter);
 						income = (resultPI.getDouble(counter) - 1) * resultIC.getDouble(counter);
-						System.out.println("Рекомендуется профинансировать проект полностью ");
-						System.out.println("Доход от проекта составит " + income);
-						} else {// Если остаток капитала меньше, чем первоначальные инвестиции в проект
+						System.out.println("Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РїСЂРѕС„РёРЅР°РЅСЃРёСЂРѕРІР°С‚СЊ РїСЂРѕРµРєС‚ РїРѕР»РЅРѕСЃС‚СЊСЋ ");
+						System.out.println("Р”РѕС…РѕРґ РѕС‚ РїСЂРѕРµРєС‚Р° СЃРѕСЃС‚Р°РІРёС‚ " + income);
+						} else {//Р•СЃР»Рё РѕСЃС‚Р°С‚РѕРє РєР°РїРёС‚Р°Р»Р° РјРµРЅСЊС€Рµ, С‡РµРј РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅС‹Рµ РёРЅРІРµСЃС‚РёС†РёРё РІ РїСЂРѕРµРєС‚
 							restOfCap = 0;
 							income = investor.getCapital().doubleValue() * (invPro.countPI().doubleValue() - 1);
-							System.out.println("Доход от проекта составит " + income);
+							System.out.println("Р”РѕС…РѕРґ РѕС‚ РїСЂРѕРµРєС‚Р° СЃРѕСЃС‚Р°РІРёС‚ " + income);
 						}
 					} else {
 						restOfCap = 0;
 						income = restOfCap * investor.getRDep();
-						System.out.println("Доход от проекта составит " + income);
+						System.out.println("Р”РѕС…РѕРґ РѕС‚ РїСЂРѕРµРєС‚Р° СЃРѕСЃС‚Р°РІРёС‚ " + income);
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
