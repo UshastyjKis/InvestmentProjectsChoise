@@ -22,8 +22,6 @@ public class InvProject {
 		private Double MIRR;// modified internal rate of return
 		private boolean isIrrational; // secondary indicator
 		private double fVSum;// amount of cash flows
-		//private Double cFIn; // amount of incoming cash flows
-		//private Double cFOut;// amount of outgoing cash flows
 		
 		InvProject () { // Constructor
 			name = " ";
@@ -41,8 +39,6 @@ public class InvProject {
 			MIRR = new Double(0);
 			isIrrational = false;
 			fVSum = 0;
-			//cFIn = (double) 0;
-			//cFOut = iC.doubleValue();
 		}
 		
 		public void setName (String x) {
@@ -106,20 +102,14 @@ public class InvProject {
 			double payback = -fV0;
 			double i = 0;
 			double j = 0;
-			int y = 0;
+			int y = 0;//just marker
 			for(int x = 1; x<=t; x++) {
 				System.out.print("Введите денежный поток " + x + " года: ");// Add try catch
 				fV = input.nextDouble();
 				cashFlow.add(fV);
 				if (fV > 0) {
 					y = 1;
-					//cFIn = cFIn + fV * (Math.pow(1+r, t - x));
-					//System.out.println(cFIn);
-				} else {
-					//cFOut = cFOut - fV/(Math.pow(1+r, x));
-					//System.out.println(cFOut);
-				}
-				if (fV < 0 && y == 1) {
+				} else if (fV < 0 && y == 1) {
 					isIrrational = true;
 				}
 				if (payback < 0) {
@@ -150,12 +140,10 @@ public class InvProject {
 			double futVal = 0;
 			for (int i = 0; i < cashFlow.size(); i++) {
 				futVal = futVal + cashFlow.get(i)/(Math.pow(1 + a, i + 1));
-				//System.out.println ("futVal равно " + futVal);
 			}
 			BigDecimal futValue = new BigDecimal(0);
 			futValue = BigDecimal.valueOf (futVal);
 			NPV = futValue.subtract(iC);
-			//System.out.println("Чистый дисконтированный доход проекта " + name + " равен " + NPV);
 			return NPV;
 		}
 		
@@ -171,11 +159,9 @@ public class InvProject {
 		}
 		
 		public Double countIRR () {
-			double r1 = 0;
-			//double r2 = 0;
+			double r1 = 0;// start position for search
 			if (isIrrational == false) {
 				r1 = Math.pow (fVSum/iC.doubleValue(), 1/t) - 1;
-				//System.out.println ("r1 равна " + r1);
 				for (double i = r1; i < Double.MAX_VALUE; i = i + 0.01) {
 					BigDecimal y = this.countNPV (i);
 					if (y.doubleValue() <= 0) {
@@ -183,17 +169,11 @@ public class InvProject {
 						break;
 					}
 				}
-				/*r2 = fVSum/iC.doubleValue() - 1;
-				System.out.println ("r2 равна " + r2);
-				BigDecimal NPV1 = this.countNPV(r1);
-				BigDecimal NPV2 = this.countNPV(r2);
-				IRR = r1 + NPV1.doubleValue() * (r2 - r1) / (NPV1.doubleValue() - NPV2.doubleValue());*/
 				System.out.println ("IRR равна " + IRR);
 				this.countNPV(IRR);
 				return IRR;
 			} else {
 				r1 = Math.pow (fVSum/iC.doubleValue(), 1/t) - 1;
-				//System.out.println ("r1 равна " + r1);
 				for (double i = r1; i < Double.MAX_VALUE; i = i + 0.01) {
 					BigDecimal y = this.countNPV (i);
 					if (y.doubleValue() <= 0) {
@@ -201,9 +181,7 @@ public class InvProject {
 						break;
 					}
 				}
-				//MIRR = Math.pow((cFIn/cFOut - 1), 1/t);
 				System.out.println ("MIRR равна " + MIRR);
-				//this.countNPV(MIRR);
 				return MIRR;
 			}
 		}
