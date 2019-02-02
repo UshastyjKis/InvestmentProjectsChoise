@@ -130,7 +130,7 @@ public class InvProject {
 			input.close();
 		}
 								   
-		public void inputValues (String name, double t, double r, BigDecimal IC, double FV) {
+		public BigDecimal inputValues (String name, double t, double r, BigDecimal IC, double FV) {
 			this.name = name;
 			this.t = t;
 			this.r = r;
@@ -162,6 +162,7 @@ public class InvProject {
 							fVSum = fVSum + fV;
 							fVal = fVal.add(BigDecimal.valueOf(fV/(Math.pow(1+r, x))));
 			}
+			return fVal;
 		}
 		
 		public BigDecimal countNPV () {
