@@ -17,10 +17,6 @@ public class InvestProjectTest{
 
   @Test
   public void testInputValues(){
-    testProject.setName("ProjectZ");
-    testProject.setT(3);
-    testProject.setR(0.1);
-    testProject.setIC(500);
-    testProject.setFV()
+    assertEquals (400, testProject.inputValues("ProjectZ", 3, 0.0, 500, 300));
   }
  }
