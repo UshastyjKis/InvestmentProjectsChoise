@@ -129,6 +129,40 @@ public class InvProject {
 			}
 			input.close();
 		}
+								   
+		public void inputValues (String name, double t, double r, BigDecimal IC, double FV) {
+			this.name = name;
+			this.t = t;
+			this.r = r;
+			this.iC = IC;
+			double payback = -IC;
+			double i = 0;
+			double j = 0;
+			int y = 0;//just marker
+			for(int x = 1; x<=t; x++) {
+				this.fV = FV;
+				cashFlow.add(fV);
+				if (fV > 0) {
+					y = 1;
+				} else if (fV < 0 && y == 1) {
+					isIrrational = true;
+				}
+				if (payback < 0) {
+					payback = fV/(Math.pow(1+r, x)) + payback;
+					if (payback < 0) { // number of years
+						i++;
+					} else { 
+						if (payback != 0) { // number of months, if * 12
+							j = payback / fV;
+							payback = 0;
+							} 
+					}
+				}
+							DPP = i + j;
+							fVSum = fVSum + fV;
+							fVal = fVal.add(BigDecimal.valueOf(fV/(Math.pow(1+r, x))));
+			}
+		}
 		
 		public BigDecimal countNPV () {
 			NPV = fVal.subtract(iC);
