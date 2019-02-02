@@ -17,6 +17,6 @@ public class InvestProjectTest{
 
   @Test
   public void testInputValues(){
-    assertEquals (400, testProject.inputValues("ProjectZ", 3, 0.0, 500, 300));
+    assertEquals (900, testProject.inputValues("ProjectZ", 3, 0.0, 500, 300));
   }
  }
