@@ -1,0 +1,26 @@
+import org.junit.*;
+import static org.junit.Assert.*;
+
+public class InvestProjectTest{
+
+  private InvProject testProject;
+  
+  @Before
+  public void initTest(){
+    testProject = new InvProject();
+  }
+  
+  @After
+  public void afterTest(){
+    testProject = null;
+  }
+
+  @Test
+  public void testInputValues(){
+    testProject.setName("ProjectZ");
+    testProject.setT(3);
+    testProject.setR(0.1);
+    testProject.setIC(500);
+    testProject.setFV()
+  }
+ }
